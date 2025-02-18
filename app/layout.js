@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import Navbar from '~/components/nav/Navbar'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,15 +16,18 @@ export const metadata = {
   title: 'Kilpailuta',
   description: 'Professional Finding Site',
   icons: {
-    icon: '/jobfinder.ico',
-    shortcut: '/jobfinder.ico'
+    icon: '/logo.ico',
+    shortcut: '/logo.ico'
   }
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }

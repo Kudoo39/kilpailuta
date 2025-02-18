@@ -89,7 +89,8 @@ export default function LandingPage() {
     setIsMounted(true)
   }, [])
 
-  const getNavigationPath = (targetPath) => (userRole ? targetPath : '/signup')
+  const getNavigationPath = (targetPath) =>
+    userRole ? targetPath : '/register'
 
   if (!isMounted) return null
 
@@ -109,7 +110,7 @@ export default function LandingPage() {
         />
       </div>
 
-      <main className='container mx-auto px-4 py-8 relative mt-16'>
+      <main className='container mx-auto px-4 py-8 relative mt-2'>
         {/* Animated Marquee */}
         <motion.div
           initial={{ opacity: 0, y: -50, scale: 0.9 }}
@@ -117,7 +118,7 @@ export default function LandingPage() {
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
           className='bg-gradient-to-r from-blue-900/20 to-sky-900/20 rounded-xl py-3 px-6 mb-16 backdrop-blur-lg border border-black-800/30 shadow-lg hover:shadow-xl transition-shadow'
         >
-          <Marquee pauseOnHover speed={40} className='text-white font-semibold'>
+          <Marquee speed={40} className='text-white font-semibold'>
             {[
               {
                 icon: Share2,
