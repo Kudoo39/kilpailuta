@@ -207,11 +207,11 @@ export default function LandingPage() {
             </h1>
 
             <p className='mt-6 text-xl text-gray-600 max-w-2xl'>
-              Whether you're a{' '}
+              Whether you&apos;re a{' '}
               <span className='font-semibold text-sky-600'>professional</span>{' '}
               looking for opportunities or a{' '}
               <span className='font-semibold text-blue-600'>company</span>{' '}
-              seeking top talent, we’ve got you covered.
+              seeking top talent, we&apos;ve got you covered.
             </p>
           </motion.div>
 
@@ -381,7 +381,7 @@ export default function LandingPage() {
                 <Link href={getNavigationPath('/professional-dashboard')}>
                   <span className='flex items-center gap-2'>
                     <Rocket className='w-5 h-5' />
-                    <span>I'm a Professional</span>
+                    <span>I&apos;m a Professional</span>
                   </span>
                 </Link>
               </Button>
@@ -394,7 +394,7 @@ export default function LandingPage() {
                 <Link href={getNavigationPath('/company-dashboard')}>
                   <span className='flex items-center gap-2'>
                     <Building2 className='w-5 h-5' />
-                    <span>I'm a Company</span>
+                    <span>I&apos;m a Company</span>
                   </span>
                 </Link>
               </Button>
