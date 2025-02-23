@@ -235,7 +235,7 @@ export default function LandingPage() {
         </section>
 
         {/* Content */}
-        <div className='relative z-10 text-center max-w-4xl mx-auto px-4'>
+        <div className='relative z-10 text-center max-w-4xl mx-auto px-4 pb-36'>
           <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
             <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400'>
               Find the Right Professionals
