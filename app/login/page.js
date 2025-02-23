@@ -9,11 +9,7 @@ export default function LoginPage() {
   return (
     <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 to-blue-50'>
       {/* Background Animation */}
-      <motion.div
-        animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        className='absolute inset-0 bg-gradient-to-r from-sky-500/10 to-blue-500/10 rounded-xl blur-3xl'
-      />
+      <div className='absolute inset-0 bg-gradient-to-r from-sky-500/10 to-blue-500/10 rounded-xl blur-3xl' />
 
       {/* Login Card */}
       <motion.div

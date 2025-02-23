@@ -164,7 +164,7 @@ export default function LandingPage() {
         </motion.div>
 
         {/* Hero Section */}
-        <section className='mb-20 relative px-1'>
+        <section className='mb-28 relative px-1'>
           {/* Background gradient animation */}
           <motion.div
             animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -234,191 +234,60 @@ export default function LandingPage() {
           />
         </section>
 
-        {/* Value Propositions */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className='grid grid-cols-1 md:grid-cols-2 gap-8 mb-24'
-        >
-          {/* For Companies */}
-          <Card className='bg-gradient-to-br from-[#eef2ff] to-white border border-sky-100/50 shadow-lg hover:shadow-xl transition-shadow'>
-            <CardContent className='p-6'>
-              <div className='flex items-center gap-4 mb-6'>
-                <div className='p-3 bg-sky-500/10 rounded-lg'>
-                  <Building2 className='w-8 h-8 text-sky-600' />
-                </div>
-                <h3 className='text-2xl font-bold text-sky-800'>
-                  For Companies
-                </h3>
-              </div>
-              <p className='text-gray-600 mb-6'>
-                Find the best professionals to grow your business. Our platform
-                connects you with top-tier talent tailored to your needs.
-              </p>
-              <ul className='space-y-3 mb-6'>
-                {[
-                  {
-                    icon: Search,
-                    text: 'Access a vast pool of skilled professionals'
-                  },
-                  {
-                    icon: ThumbsUp,
-                    text: 'Hire with confidence using verified profiles'
-                  },
-                  { icon: Handshake, text: 'Streamlined hiring process' },
-                  {
-                    icon: ChartBar,
-                    text: 'Boost productivity with the right talent'
-                  }
-                ].map((item, idx) => (
-                  <li
-                    key={idx}
-                    className='flex items-center gap-3 text-gray-700'
-                  >
-                    <item.icon className='w-5 h-5 text-sky-600' />
-                    <span>{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button
-                size='lg'
-                className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 w-full'
-                asChild
-              >
-                <Link href={getNavigationPath('/company-dashboard')}>
-                  Hire Professionals
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+        {/* Content */}
+        <div className='relative z-10 text-center max-w-4xl mx-auto px-4'>
+          <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
+            <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400'>
+              Find the Right Professionals
+            </span>
+          </h2>
+          <p className='text-xl text-gray-600 mb-8'>
+            Search for skilled professionals in any field. Whether you need an
+            electrician, developer, or designer, we&apos;ve got you covered.
+          </p>
 
-          {/* For Professionals */}
-          <Card className='bg-gradient-to-br from-[#eef2ff] to-white border border-blue-100/50 shadow-lg hover:shadow-xl transition-shadow'>
-            <CardContent className='p-6'>
-              <div className='flex items-center gap-4 mb-6'>
-                <div className='p-3 bg-blue-500/10 rounded-lg'>
-                  <UserCircle className='w-8 h-8 text-blue-600' />
-                </div>
-                <h3 className='text-2xl font-bold text-blue-800'>
-                  For Professionals
-                </h3>
-              </div>
-              <p className='text-gray-600 mb-6'>
-                Discover exciting job opportunities and take your career to the
-                next level. Connect with companies that value your skills.
-              </p>
-              <ul className='space-y-3 mb-6'>
-                {[
-                  {
-                    icon: Briefcase,
-                    text: 'Explore diverse job opportunities'
-                  },
-                  {
-                    icon: Heart,
-                    text: 'Work with companies that match your values'
-                  },
-                  { icon: Rocket, text: 'Accelerate your career growth' },
-                  { icon: Globe, text: 'Find remote or on-site roles' }
-                ].map((item, idx) => (
-                  <li
-                    key={idx}
-                    className='flex items-center gap-3 text-gray-700'
-                  >
-                    <item.icon className='w-5 h-5 text-blue-600' />
-                    <span>{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button
-                size='lg'
-                className='bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 w-full'
-                asChild
-              >
-                <Link href={getNavigationPath('/professional-dashboard')}>
-                  Find Opportunities
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.section>
-
-        {/* Final CTA Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className='relative py-20 overflow-hidden'
-        >
-          {/* Background gradient animation */}
-          <motion.div
-            animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className='absolute inset-0 bg-gradient-to-r from-sky-500/10 to-blue-500/10 rounded-xl blur-3xl'
-          />
-
-          {/* Content */}
-          <div className='relative z-10 text-center max-w-4xl mx-auto px-4'>
-            <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
-              <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400'>
-                Ready to Get Started?
-              </span>
-            </h2>
-            <p className='text-xl text-gray-600 mb-8'>
-              Join thousands of professionals and companies who are already
-              transforming their careers and businesses. It only takes a few
-              minutes to sign up and start your journey!
-            </p>
-
-            {/* CTA Buttons */}
-            <div className='flex flex-col md:flex-row justify-center gap-6'>
-              <Button
-                size='lg'
-                className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
-                asChild
-              >
-                <Link href={getNavigationPath('/professional-dashboard')}>
-                  <span className='flex items-center gap-2'>
-                    <Rocket className='w-5 h-5' />
-                    <span>I&apos;m a Professional</span>
-                  </span>
-                </Link>
-              </Button>
-
-              <Button
-                size='lg'
-                className='bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
-                asChild
-              >
-                <Link href={getNavigationPath('/company-dashboard')}>
-                  <span className='flex items-center gap-2'>
-                    <Building2 className='w-5 h-5' />
-                    <span>I&apos;m a Company</span>
-                  </span>
-                </Link>
-              </Button>
-            </div>
-
-            {/* Floating shapes for visual interest */}
-            <motion.div
-              animate={{ x: [0, 20, 0], y: [0, -20, 0], rotate: [0, 10, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-              className='absolute top-1/4 left-1/4 w-16 h-16 bg-sky-400/20 rounded-full blur-lg'
+          {/* Search Bar */}
+          <div className='relative w-full max-w-2xl mx-auto'>
+            <input
+              type='text'
+              placeholder='Search for professionals (e.g., electrician, developer)'
+              className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
             />
-            <motion.div
-              animate={{ x: [0, -20, 0], y: [0, 20, 0], rotate: [0, -10, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-              className='absolute top-1/2 right-1/4 w-20 h-20 bg-blue-400/20 rounded-full blur-lg'
-            />
-            <motion.div
-              animate={{ x: [0, 30, 0], y: [0, -30, 0], rotate: [0, 15, 0] }}
-              transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-              className='absolute bottom-1/4 left-1/2 w-24 h-24 bg-sky-600/20 rounded-full blur-lg'
-            />
+            <Button
+              size='lg'
+              className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
+            >
+              <Search className='w-5 h-5' />
+            </Button>
           </div>
-        </motion.section>
+
+          {/* Autocomplete Suggestions */}
+          <div className='mt-6 text-left max-w-2xl mx-auto'>
+            <h3 className='text-lg font-semibold text-gray-800 mb-4'>
+              Popular Searches
+            </h3>
+            <div className='flex flex-wrap gap-3'>
+              {[
+                'Electrician',
+                'Web Developer',
+                'Graphic Designer',
+                'Plumber',
+                'Chef',
+                'Marketing Specialist',
+                'Delivery Driver',
+                'Painter'
+              ].map((job, idx) => (
+                <Button
+                  key={idx}
+                  variant='outline'
+                  className='text-gray-700 hover:bg-sky-50 hover:text-sky-600 transition-colors'
+                >
+                  {job}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   )
