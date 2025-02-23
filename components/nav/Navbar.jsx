@@ -1,22 +1,40 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from '~/components/ui/button'
 import { Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const menuRef = useRef(null)
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
   }
 
+  const closeMenu = () => {
+    setIsOpen(false)
+  }
+
+  // Close the menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        closeMenu()
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'For Professionals', href: '/professional-dashboard' },
-    { name: 'For Companies', href: '/company-dashboard' },
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' }
   ]
@@ -70,6 +88,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <motion.div
+          ref={menuRef}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
@@ -81,7 +100,7 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 className='text-gray-700 hover:text-sky-600 transition-colors font-medium'
-                onClick={toggleMenu}
+                onClick={closeMenu}
               >
                 {link.name}
               </Link>
@@ -89,6 +108,7 @@ export default function Navbar() {
             <Button
               asChild
               className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
+              onClick={closeMenu}
             >
               <Link href='/register'>Get Started</Link>
             </Button>
