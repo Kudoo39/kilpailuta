@@ -123,9 +123,9 @@ export default function About() {
                 About Kilpailuta
               </h2>
               <p className='text-lg text-gray-600 mb-6'>
-                We're dedicated to revolutionizing professional recruitment by
-                creating meaningful connections between talented individuals and
-                forward-thinking companies.
+                We&apos;re dedicated to revolutionizing professional recruitment
+                by creating meaningful connections between talented individuals
+                and forward-thinking companies.
               </p>
               <p className='text-lg text-gray-600 mb-8'>
                 Our platform simplifies the hiring process while ensuring the
