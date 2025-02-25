@@ -34,7 +34,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'For Professionals', href: '/professional-dashboard' },
+    { name: 'For Professionals', href: '/professionals' },
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' }
   ]

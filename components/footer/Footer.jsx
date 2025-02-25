@@ -67,14 +67,6 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href='/services'
-                  className='text-gray-600 hover:text-sky-600 transition-colors'
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
                   href='/careers'
                   className='text-gray-600 hover:text-sky-600 transition-colors'
                 >

@@ -1,21 +1,14 @@
 'use client'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { jwtDecode } from 'jwt-decode'
 import { Button } from '~/components/ui/button'
-import { Card, CardContent } from '~/components/ui/card'
 import {
   Briefcase,
-  Heart,
   Search,
-  ThumbsUp,
-  Globe,
   ChartBar,
   Share2,
   Users,
   Handshake,
-  UserCircle,
-  Building2,
   Rocket
 } from 'lucide-react'
 import { Marquee } from '~/components/magicui/marquee'
@@ -127,7 +120,7 @@ export default function LandingPage() {
               },
               {
                 icon: Rocket,
-                text: 'Land your dream job today!',
+                text: 'Streamline your hiring process!',
                 color: 'text-sky-500'
               },
               {
@@ -137,17 +130,17 @@ export default function LandingPage() {
               },
               {
                 icon: ChartBar,
-                text: 'Boost your career with expert advice!',
+                text: 'Boost productivity with the right talent!',
                 color: 'text-sky-500'
               },
               {
                 icon: Briefcase,
-                text: 'Explore exciting job openings!',
+                text: 'Hire skilled professionals effortlessly!',
                 color: 'text-blue-500'
               },
               {
                 icon: Handshake,
-                text: 'Hire the best professionals effortlessly!',
+                text: 'Connect with verified professionals!',
                 color: 'text-sky-500'
               }
             ].map((item, idx) => (
@@ -181,10 +174,10 @@ export default function LandingPage() {
           >
             <h1 className='text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6'>
               <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400 mb-2'>
-                Find & Connect
+                Find & Hire
               </span>
               <span className='block text-gray-800 mb-2'>
-                With Top-tier{' '}
+                Top-tier{' '}
                 <motion.span
                   animate={{ opacity: [1, 0.8, 1], scale: [1, 1.05, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -208,11 +201,11 @@ export default function LandingPage() {
             </h1>
 
             <p className='mt-6 text-xl text-gray-600 max-w-2xl'>
-              Whether you&apos;re a{' '}
-              <span className='font-semibold text-sky-600'>professional</span>{' '}
-              looking for opportunities or a{' '}
-              <span className='font-semibold text-blue-600'>company</span>{' '}
-              seeking top talent, we&apos;ve got you covered.
+              Whether you need an{' '}
+              <span className='font-semibold text-sky-600'>electrician</span>, a{' '}
+              <span className='font-semibold text-blue-600'>developer</span>, or
+              a <span className='font-semibold text-sky-600'>designer</span>, we
+              help you find the right talent to grow your business.
             </p>
           </motion.div>
 
@@ -234,8 +227,8 @@ export default function LandingPage() {
           />
         </section>
 
-        {/* Content */}
-        <div className='relative z-10 text-center max-w-4xl mx-auto px-4 pb-36'>
+        {/* Search Section */}
+        <div className='relative z-10 text-left max-w-4xl mx-auto px-4 pb-36'>
           <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
             <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400'>
               Find the Right Professionals
@@ -247,7 +240,7 @@ export default function LandingPage() {
           </p>
 
           {/* Search Bar */}
-          <div className='relative w-full max-w-2xl mx-auto'>
+          <div className='relative w-full'>
             <input
               type='text'
               placeholder='Search for professionals (e.g., electrician, developer)'
@@ -262,7 +255,7 @@ export default function LandingPage() {
           </div>
 
           {/* Autocomplete Suggestions */}
-          <div className='mt-6 text-left max-w-2xl mx-auto'>
+          <div className='mt-6'>
             <h3 className='text-lg font-semibold text-gray-800 mb-4'>
               Popular Searches
             </h3>
