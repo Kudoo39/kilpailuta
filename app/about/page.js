@@ -9,6 +9,7 @@ import {
 } from '~/components/ui/card'
 import { Search, Shield, Briefcase, BarChart } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 const features = [
   {
@@ -89,59 +90,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* about section */}
-      <section className='py-20 bg-sky-50'>
-        <div className='container mx-auto px-4'>
-          <div className='grid lg:grid-cols-2 gap-12 items-center'>
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className='relative'
-            >
-              <div className='aspect-video rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-600 p-1'>
-                <div className='rounded-xl bg-white p-8 h-full flex items-center justify-center'>
-                  <svg
-                    className='w-full h-full text-sky-600'
-                    viewBox='0 0 24 24'
-                    fill='currentColor'
-                  >
-                    <path d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V18h14v-1.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05.02.01.03.03.04.04 1.14.83 1.93 1.94 1.93 3.41V18h6v-1.5c0-2.33-4.67-3.5-7-3.5z' />
-                  </svg>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className='text-4xl font-bold text-gray-900 mb-6'>
-                About Kilpailuta
-              </h2>
-              <p className='text-lg text-gray-600 mb-6'>
-                We&apos;re dedicated to revolutionizing professional recruitment
-                by creating meaningful connections between talented individuals
-                and forward-thinking companies.
-              </p>
-              <p className='text-lg text-gray-600 mb-8'>
-                Our platform simplifies the hiring process while ensuring the
-                perfect match between professional expertise and company
-                requirements.
-              </p>
-              <Button size='lg' variant='outline'>
-                Learn More About Our Mission
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* features section */}
-      <section className='py-20 bg-white'>
+      <section className='py-20 bg-gradient-to-br from-sky-50 to-blue-50'>
         <div className='container mx-auto px-4'>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -178,6 +128,58 @@ export default function About() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* about section */}
+      <section className='min-h-screen '>
+        <div className='container mx-auto px-4 py-12'>
+          {/* Hero Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className='text-center mb-12'
+          >
+            <h1 className='text-4xl md:text-5xl font-extrabold text-sky-800 mb-4'>
+              About Kilpailuta
+            </h1>
+            <p className='text-xl text-gray-600 max-w-2xl mx-auto'>
+              Connecting companies with top-tier professionals to build the
+              future of work.
+            </p>
+          </motion.section>
+
+          {/* Content Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className='bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto'
+          >
+            <h2 className='text-2xl font-semibold text-sky-800 mb-4'>
+              Our Mission
+            </h2>
+            <p className='text-gray-600 mb-6'>
+              At Kilpailuta, we believe in simplifying the hiring process. Our
+              platform bridges the gap between talented professionals and
+              innovative companies, fostering growth and opportunity for all.
+            </p>
+            <h2 className='text-2xl font-semibold text-sky-800 mb-4'>
+              Our Vision
+            </h2>
+            <p className='text-gray-600'>
+              To create a world where every company finds the perfect talent and
+              every professional discovers their dream job—effortlessly.
+            </p>
+            <div className='mt-8'>
+              <Link href='/'>
+                <Button className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'>
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
+          </motion.section>
         </div>
       </section>
     </>

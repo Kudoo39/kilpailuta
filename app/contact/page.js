@@ -21,8 +21,8 @@ export default function Contact() {
             Get in Touch
           </h2>
           <p className='text-xl text-gray-600 max-w-2xl mx-auto'>
-            Have questions? We&apos;d love to hear from you. Send us a message and
-            we&apos;ll respond as soon as possible.
+            Have questions? We&apos;d love to hear from you. Send us a message
+            and we&apos;ll respond as soon as possible.
           </p>
         </motion.div>
 
@@ -61,7 +61,7 @@ export default function Contact() {
               <Mail className='h-6 w-6 text-sky-600' />
               <div>
                 <h3 className='font-semibold text-gray-900'>Email</h3>
-                <p className='text-gray-600'>contact@example.com</p>
+                <p className='text-gray-600'>support@kilpailuta.com</p>
               </div>
             </div>
             <div className='flex items-start gap-4'>
