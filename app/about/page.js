@@ -7,41 +7,41 @@ import {
   CardTitle,
   CardDescription
 } from '~/components/ui/card'
-import { Search, Shield, Briefcase, BarChart } from 'lucide-react'
+import { Search, Shield, Briefcase, Users } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 const features = [
   {
-    title: 'Smart Matching',
+    title: 'Quick Connections',
     description:
-      'Our intelligent system matches professionals with the perfect job opportunities.',
+      'Easily find pros for any task or gigs that match your skills with our simple platform.',
     icon: Search
   },
   {
-    title: 'Verified Profiles',
+    title: 'Trusted Pros',
     description:
-      'All professionals and companies are thoroughly verified for your peace of mind.',
+      'We verify every professional so you can hire or work with confidence.',
     icon: Shield
   },
   {
-    title: 'Easy Application',
+    title: 'Hassle-Free Process',
     description:
-      'Streamlined process for both job seekers and employers to connect efficiently.',
+      'Get started fast—whether you are hiring help or picking up work, it is straightforward.',
     icon: Briefcase
   },
   {
-    title: 'Career Insights',
+    title: 'Community-Driven',
     description:
-      'Access detailed market data and salary insights for informed decisions.',
-    icon: BarChart
+      'Join a network of people and pros helping each other get things done.',
+    icon: Users
   }
 ]
 
 export default function About() {
   return (
     <>
-      {/* hero section */}
+      {/* Hero Section */}
       <section className='relative min-h-[90vh] flex items-center bg-gradient-to-br from-sky-50 via-white to-sky-50'>
         <div className='container mx-auto px-4 py-20'>
           <div className='grid lg:grid-cols-2 gap-12 items-center'>
@@ -51,19 +51,19 @@ export default function About() {
               transition={{ duration: 0.6 }}
             >
               <h1 className='text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6'>
-                Connect with Top Talent and Opportunities
+                Hire Help or Earn with Your Skills
               </h1>
               <p className='text-xl text-gray-600 mb-8'>
-                Kilpailuta bridges the gap between skilled professionals and
-                companies seeking exceptional talent. Find your next career move
-                or perfect candidate today.
+                Kilpailuta connects everyday people with skilled pros for any
+                task—big or small—and helps pros find work that fits their
+                expertise.
               </p>
               <div className='flex gap-4'>
                 <Button size='lg' className='bg-sky-600 hover:bg-sky-700'>
-                  Start Hiring <ArrowRight className='ml-2 h-5 w-5' />
+                  Hire a Pro <ArrowRight className='ml-2 h-5 w-5' />
                 </Button>
                 <Button size='lg' variant='outline'>
-                  Find Jobs
+                  Find Gigs
                 </Button>
               </div>
             </motion.div>
@@ -90,7 +90,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* features section */}
+      {/* Features Section */}
       <section className='py-20 bg-gradient-to-br from-sky-50 to-blue-50'>
         <div className='container mx-auto px-4'>
           <motion.div
@@ -104,8 +104,8 @@ export default function About() {
               Why Choose Kilpailuta
             </h2>
             <p className='text-xl text-gray-600 max-w-2xl mx-auto'>
-              Discover how we make professional recruitment more efficient and
-              effective for everyone.
+              See how we make it simple for people to hire pros and for pros to
+              find work.
             </p>
           </motion.div>
 
@@ -131,10 +131,9 @@ export default function About() {
         </div>
       </section>
 
-      {/* about section */}
-      <section className='min-h-screen '>
+      {/* About Section */}
+      <section className='min-h-screen'>
         <div className='container mx-auto px-4 py-12'>
-          {/* Hero Section */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -145,12 +144,11 @@ export default function About() {
               About Kilpailuta
             </h1>
             <p className='text-xl text-gray-600 max-w-2xl mx-auto'>
-              Connecting companies with top-tier professionals to build the
-              future of work.
+              Helping people get things done and pros earn a living, one task at
+              a time.
             </p>
           </motion.section>
 
-          {/* Content Section */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -161,16 +159,17 @@ export default function About() {
               Our Mission
             </h2>
             <p className='text-gray-600 mb-6'>
-              At Kilpailuta, we believe in simplifying the hiring process. Our
-              platform bridges the gap between talented professionals and
-              innovative companies, fostering growth and opportunity for all.
+              At Kilpailuta, we are here to make life easier. We connect people
+              who need help with pros who can get the job done—whether it is
+              fixing a leak, painting a room, or designing a flyer.
             </p>
             <h2 className='text-2xl font-semibold text-sky-800 mb-4'>
               Our Vision
             </h2>
             <p className='text-gray-600'>
-              To create a world where every company finds the perfect talent and
-              every professional discovers their dream job—effortlessly.
+              To build a community where anyone can find the right help for any
+              task, and every pro can find work that matches their
+              skills—quickly and simply.
             </p>
             <div className='mt-8'>
               <Link href='/'>

@@ -41,8 +41,9 @@ export default function LandingPage() {
   const [userRole, setUserRole] = useState(null)
   const [idFromToken, setIdFromToken] = useState(null)
   const [isMounted, setIsMounted] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
 
-  // Rotate job titles every 4.5 seconds
+  // Rotate job titles every 2.4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentJobTitle((prev) => {
@@ -85,6 +86,11 @@ export default function LandingPage() {
   const getNavigationPath = (targetPath) =>
     userRole ? targetPath : '/register'
 
+  // Handler for clicking popular task buttons
+  const handlePopularTaskClick = (job) => {
+    setSearchValue(job)
+  }
+
   if (!isMounted) return null
 
   return (
@@ -115,32 +121,32 @@ export default function LandingPage() {
             {[
               {
                 icon: Share2,
-                text: 'Find top talent fast!',
+                text: 'Find help for any task fast!',
                 color: 'text-blue-500'
               },
               {
                 icon: Rocket,
-                text: 'Streamline your hiring process!',
+                text: 'Get your projects done quickly!',
                 color: 'text-sky-500'
               },
               {
                 icon: Users,
-                text: 'Build your dream team!',
+                text: 'Connect with local pros!',
                 color: 'text-blue-500'
               },
               {
                 icon: ChartBar,
-                text: 'Boost productivity with the right talent!',
+                text: 'Solve your problems with ease!',
                 color: 'text-sky-500'
               },
               {
                 icon: Briefcase,
-                text: 'Hire skilled professionals effortlessly!',
+                text: 'Hire skilled experts effortlessly!',
                 color: 'text-blue-500'
               },
               {
                 icon: Handshake,
-                text: 'Connect with verified professionals!',
+                text: 'Trust verified professionals!',
                 color: 'text-sky-500'
               }
             ].map((item, idx) => (
@@ -158,14 +164,11 @@ export default function LandingPage() {
 
         {/* Hero Section */}
         <section className='mb-28 relative px-1'>
-          {/* Background gradient animation */}
           <motion.div
             animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             className='absolute inset-0 bg-gradient-to-r from-sky-500/10 to-blue-500/10 rounded-xl blur-3xl'
           />
-
-          {/* Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -177,7 +180,7 @@ export default function LandingPage() {
                 Find & Hire
               </span>
               <span className='block text-gray-800 mb-2'>
-                Top-tier{' '}
+                Skilled{' '}
                 <motion.span
                   animate={{ opacity: [1, 0.8, 1], scale: [1, 1.05, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -185,7 +188,7 @@ export default function LandingPage() {
                 >
                   Professionals
                 </motion.span>{' '}
-                in
+                for
               </span>
               <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-blue-600'>
                 {typingText}
@@ -195,21 +198,18 @@ export default function LandingPage() {
                   className='ml-1'
                 >
                   |
-                </motion.span>{' '}
-                {/* Typing cursor */}
+                </motion.span>
               </span>
             </h1>
-
             <p className='mt-6 text-xl text-gray-600 max-w-2xl'>
-              Whether you need an{' '}
-              <span className='font-semibold text-sky-600'>electrician</span>, a{' '}
-              <span className='font-semibold text-blue-600'>developer</span>, or
-              a <span className='font-semibold text-sky-600'>designer</span>, we
-              help you find the right talent to grow your business.
+              Need a <span className='font-semibold text-sky-600'>plumber</span>{' '}
+              to fix a leak, a{' '}
+              <span className='font-semibold text-blue-600'>painter</span> for
+              your home, or a{' '}
+              <span className='font-semibold text-sky-600'>chef</span> for a
+              special event? We will connect you with the right pro for any job.
             </p>
           </motion.div>
-
-          {/* Floating shapes for visual interest */}
           <motion.div
             animate={{ x: [0, 20, 0], y: [0, -20, 0], rotate: [0, 10, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
@@ -231,19 +231,21 @@ export default function LandingPage() {
         <div className='relative z-10 text-left max-w-4xl mx-auto px-4 pb-36'>
           <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
             <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400'>
-              Find the Right Professionals
+              Hire Help for Any Task
             </span>
           </h2>
           <p className='text-xl text-gray-600 mb-8'>
-            Search for skilled professionals in any field. Whether you need an
-            electrician, developer, or designer, we&apos;ve got you covered.
+            Search for pros to tackle any job—big or small. From fixing your
+            pipes to designing a logo, we have got the talent you need.
           </p>
 
           {/* Search Bar */}
           <div className='relative w-full'>
             <input
               type='text'
-              placeholder='Search for professionals (e.g., electrician, developer)'
+              placeholder='Search for help (e.g., plumber, graphic designer)'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
               className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
             />
             <Button
@@ -257,7 +259,7 @@ export default function LandingPage() {
           {/* Autocomplete Suggestions */}
           <div className='mt-6'>
             <h3 className='text-lg font-semibold text-gray-800 mb-4'>
-              Popular Searches
+              Popular Tasks
             </h3>
             <div className='flex flex-wrap gap-3'>
               {[
@@ -274,6 +276,7 @@ export default function LandingPage() {
                   key={idx}
                   variant='outline'
                   className='text-gray-700 hover:bg-sky-50 hover:text-sky-600 transition-colors'
+                  onClick={() => handlePopularTaskClick(job)}
                 >
                   {job}
                 </Button>
