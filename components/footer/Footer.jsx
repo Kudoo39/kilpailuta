@@ -27,35 +27,6 @@ export default function Footer() {
   }
 
   const resourceContent = {
-    blog: {
-      title: 'Blog',
-      body: (
-        <div>
-          <p className='mb-4'>
-            Stay informed with the latest trends, tips, and insights from the
-            world of work. Here are some highlights from our blog:
-          </p>
-          <ul className='list-disc list-inside text-gray-600'>
-            <li>
-              <strong>How to Attract Top Talent in 2025:</strong> Learn
-              strategies to stand out in a competitive market.
-            </li>
-            <li>
-              <strong>5 Skills Every Professional Should Master:</strong> Boost
-              your career with these must-have skills.
-            </li>
-            <li>
-              <strong>The Rise of Remote Work:</strong> Explore how remote
-              opportunities are shaping the future.
-            </li>
-          </ul>
-          <p className='mt-4'>
-            Check back here for more updates as we continue to share valuable
-            content!
-          </p>
-        </div>
-      )
-    },
     faq: {
       title: 'Frequently Asked Questions',
       body: (
@@ -65,21 +36,21 @@ export default function Footer() {
           </h3>
           <ul className='space-y-3 text-gray-600'>
             <li>
-              <strong>How does Kilpailuta work?</strong> We connect companies
-              with skilled professionals through an intuitive platform, making
-              hiring and job searching seamless.
+              <strong>How does Kilpailuta work?</strong> We connect people who
+              need help with skilled pros for any task, making it easy to hire
+              or find work.
             </li>
             <li>
-              <strong>Is it free to sign up?</strong> Yes, creating an account
-              is completely free for both companies and job seekers.
+              <strong>Is it free to join?</strong> Yes, signing up is free for
+              both those hiring and pros looking for gigs.
             </li>
             <li>
-              <strong>How do I contact support?</strong> Reach us at
-              support@kilpailuta.com or through our Contact page.
+              <strong>How do I contact support?</strong> Email us at
+              support@kilpailuta.com or visit our Contact page.
             </li>
             <li>
-              <strong>Can I post multiple job openings?</strong> Absolutely,
-              companies can list as many openings as needed after signing up.
+              <strong>Can I hire multiple pros?</strong> Absolutely, you can
+              find as many pros as you need for different tasks after joining.
             </li>
           </ul>
         </div>
@@ -90,26 +61,26 @@ export default function Footer() {
       body: (
         <div>
           <p className='mb-4'>
-            At Kilpailuta, we’re committed to protecting your privacy. Here’s
+            At Kilpailuta, we are committed to protecting your privacy. Here is
             how we handle your data:
           </p>
           <ul className='list-disc list-inside text-gray-600 mb-4'>
             <li>
-              <strong>Data Collection:</strong> We collect only what’s
-              necessary—like your name, email, and job preferences—to provide
-              our services.
+              <strong>Data Collection:</strong> We collect only what is
+              necessary—like your name, email, and task needs—to connect you
+              with pros or gigs.
             </li>
             <li>
               <strong>Data Use:</strong> Your information helps us match you
-              with opportunities or talent.
+              with the right help or work opportunities.
             </li>
             <li>
-              <strong>Security:</strong> We use industry-standard encryption to
-              keep your data safe.
+              <strong>Security:</strong> We use top-notch encryption to keep
+              your data safe.
             </li>
             <li>
               <strong>Sharing:</strong> We never sell your data to third
-              parties. It’s used solely within Kilpailuta.
+              parties. It is used only within Kilpailuta.
             </li>
           </ul>
           <p>Questions? Contact us at support@kilpailuta.com.</p>
@@ -126,20 +97,20 @@ export default function Footer() {
           </p>
           <ul className='list-disc list-inside text-gray-600 mb-4'>
             <li>
-              <strong>Account Responsibility:</strong> Keep your login
-              credentials secure and don’t share them.
+              <strong>Account Responsibility:</strong> Keep your login details
+              secure and do not share them.
             </li>
             <li>
               <strong>Content Guidelines:</strong> Do not post misleading,
               offensive, or harmful content.
             </li>
             <li>
-              <strong>Usage:</strong> Use the platform for its intended
-              purpose—connecting companies and professionals.
+              <strong>Usage:</strong> Use the platform for its
+              purpose—connecting people with pros for tasks and gigs.
             </li>
             <li>
-              <strong>Termination:</strong> We reserve the right to suspend
-              accounts for violations of these terms.
+              <strong>Termination:</strong> We may suspend accounts for
+              violations of these terms.
             </li>
           </ul>
           <p>Need clarification? Reach out to support@kilpailuta.com.</p>
@@ -156,8 +127,8 @@ export default function Footer() {
           <div className='space-y-4'>
             <h3 className='text-xl font-bold text-sky-800'>Kilpailuta</h3>
             <p className='text-gray-600'>
-              Connecting companies with top-tier professionals to build the
-              future of work.
+              Connecting people with pros for any task and helping pros find
+              work that fits.
             </p>
             <div className='flex items-center gap-4'>
               <a
@@ -252,7 +223,9 @@ export default function Footer() {
           {/* Newsletter */}
           <div className='space-y-4'>
             <h4 className='text-lg font-semibold text-sky-800'>Newsletter</h4>
-            <p className='text-gray-600'>Subscribe for updates and insights.</p>
+            <p className='text-gray-600'>
+              Subscribe for tips on hiring pros or finding gigs.
+            </p>
             <form className='flex items-center gap-2'>
               <input
                 type='email'
