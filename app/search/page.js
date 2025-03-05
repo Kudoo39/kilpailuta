@@ -1,20 +1,16 @@
-'use client'
-import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
+import SearchClient from './SearchClient'
 
-export default function Search() {
-  const searchParams = useSearchParams()
-  const query = searchParams.get('query') || 'No search term provided'
-
+export default function SearchPage() {
   return (
-    <div className='min-h-screen bg-gradient-to-br from-sky-50 to-blue-50 p-8'>
-      <h1 className='text-4xl font-bold text-sky-800 mb-6'>
-        Pros for "{query}"
-      </h1>
-      <p className='text-gray-600'>
-        {/* Mock results */}
-        Showing professionals available for {query}. (This is a
-        placeholder—replace with real data.)
-      </p>
-    </div>
+    <Suspense
+      fallback={
+        <div className='min-h-screen flex items-center justify-center text-gray-600'>
+          Loading...
+        </div>
+      }
+    >
+      <SearchClient />
+    </Suspense>
   )
 }
