@@ -14,6 +14,7 @@ import {
 import { Marquee } from '~/components/magicui/marquee'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 const jobTitles = [
   'Painter',
@@ -26,7 +27,6 @@ const jobTitles = [
   'Marketing Specialist'
 ]
 
-// Color theme constants
 const COLORS = {
   primary: '#6366f1',
   secondary: '#8b5cf6',
@@ -42,8 +42,8 @@ export default function LandingPage() {
   const [idFromToken, setIdFromToken] = useState(null)
   const [isMounted, setIsMounted] = useState(false)
   const [searchValue, setSearchValue] = useState('')
+  const router = useRouter()
 
-  // Rotate job titles every 2.4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentJobTitle((prev) => {
@@ -56,7 +56,6 @@ export default function LandingPage() {
     return () => clearInterval(interval)
   }, [])
 
-  // Simulate typing effect
   useEffect(() => {
     if (typingIndex < currentJobTitle.length) {
       const timeout = setTimeout(() => {
@@ -67,7 +66,6 @@ export default function LandingPage() {
     }
   }, [typingIndex, currentJobTitle])
 
-  // Auth check
   useEffect(() => {
     const token = typeof window !== 'undefined' && localStorage.getItem('token')
     if (token) {
@@ -86,9 +84,20 @@ export default function LandingPage() {
   const getNavigationPath = (targetPath) =>
     userRole ? targetPath : '/register'
 
-  // Handler for clicking popular task buttons
   const handlePopularTaskClick = (job) => {
     setSearchValue(job)
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    if (!searchValue.trim()) return
+    if (userRole) {
+      // Logged in: go to results
+      router.push(`/search?query=${encodeURIComponent(searchValue)}`)
+    } else {
+      // Not logged in: go to register with search value
+      router.push(`/register?search=${encodeURIComponent(searchValue)}`)
+    }
   }
 
   if (!isMounted) return null
@@ -161,7 +170,6 @@ export default function LandingPage() {
             ))}
           </Marquee>
         </motion.div>
-
         {/* Hero Section */}
         <section className='mb-28 relative px-1'>
           <motion.div
@@ -226,7 +234,6 @@ export default function LandingPage() {
             className='absolute bottom-1/4 left-1/2 w-24 h-24 bg-sky-600/20 rounded-full blur-lg'
           />
         </section>
-
         {/* Search Section */}
         <div className='relative z-10 text-left max-w-4xl mx-auto px-4 pb-36'>
           <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
@@ -240,7 +247,7 @@ export default function LandingPage() {
           </p>
 
           {/* Search Bar */}
-          <div className='relative w-full'>
+          <form onSubmit={handleSearchSubmit} className='relative w-full'>
             <input
               type='text'
               placeholder='Search for help (e.g., plumber, graphic designer)'
@@ -249,12 +256,13 @@ export default function LandingPage() {
               className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
             />
             <Button
+              type='submit'
               size='lg'
               className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
             >
               <Search className='w-5 h-5' />
             </Button>
-          </div>
+          </form>
 
           {/* Autocomplete Suggestions */}
           <div className='mt-6'>
