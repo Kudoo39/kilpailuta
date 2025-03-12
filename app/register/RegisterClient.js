@@ -96,9 +96,16 @@ export default function RegisterClient() {
               <option value='client'>Hire a Pro (I Need Help)</option>
             </select>
           </div>
-          {search && (
+          {search ? (
             <p className='text-gray-600 text-sm'>
-              Signing up to find pros for: <strong>{search}</strong>
+              Signing up to{' '}
+              {role === 'client' ? 'find pros for' : 'offer services as a'}:{' '}
+              <strong>{search}</strong>
+            </p>
+          ) : (
+            <p className='text-gray-600 text-sm'>
+              Sign up to {role === 'client' ? 'hire pros' : 'find gigs'}—search
+              for specific needs after registering!
             </p>
           )}
           {error && <p className='text-red-500 text-sm text-center'>{error}</p>}
