@@ -15,6 +15,7 @@ import {
 import { Marquee } from '~/components/magicui/marquee'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 const jobTitles = [
   'Frontend Developer',
@@ -43,6 +44,7 @@ export default function ProfessionalsLandingPage() {
   const [idFromToken, setIdFromToken] = useState(null)
   const [isMounted, setIsMounted] = useState(false)
   const [searchValue, setSearchValue] = useState('')
+  const router = useRouter()
 
   // Rotate job titles every 2.4 seconds
   useEffect(() => {
@@ -90,6 +92,19 @@ export default function ProfessionalsLandingPage() {
   // Handler for clicking popular job buttons
   const handlePopularJobClick = (job) => {
     setSearchValue(job)
+  }
+
+  // Handler for search form submission
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    if (!searchValue.trim()) return // Prevent empty searches
+    if (userRole) {
+      // Logged in: go to results (e.g., a professionals dashboard or search)
+      router.push(`/search?query=${encodeURIComponent(searchValue)}`)
+    } else {
+      // Not logged in: go to register with search value
+      router.push(`/register?search=${encodeURIComponent(searchValue)}`)
+    }
   }
 
   if (!isMounted) return null
@@ -242,7 +257,7 @@ export default function ProfessionalsLandingPage() {
           </p>
 
           {/* Search Bar */}
-          <div className='relative w-full'>
+          <form onSubmit={handleSearchSubmit} className='relative w-full'>
             <input
               type='text'
               placeholder='Search for gigs (e.g., electrician, designer)'
@@ -251,12 +266,13 @@ export default function ProfessionalsLandingPage() {
               className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
             />
             <Button
+              type='submit' // Changed from no type to submit
               size='lg'
               className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
             >
               <Search className='w-5 h-5' />
             </Button>
-          </div>
+          </form>
 
           {/* Autocomplete Suggestions */}
           <div className='mt-6'>
