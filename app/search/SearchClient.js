@@ -94,7 +94,7 @@ export default function SearchClient() {
         </div>
       ) : (
         <p className='text-gray-600'>
-          No professionals found for "{query}". Try a different search!
+          No professionals found for {query}. Try a different search!
         </p>
       )}
     </div>
