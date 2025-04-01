@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
 import { useSelector } from 'react-redux'
+import api from '~/lib/api'
+import { toast } from 'react-toastify'
 
 export default function PostGigClient() {
   const [title, setTitle] = useState('')
@@ -16,14 +17,17 @@ export default function PostGigClient() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(
+      await api.post(
         '/clients/gigs',
         { title, description, budget },
         {
           headers: { Authorization: `Bearer ${token}` }
         }
       )
-      router.push('/search') // Redirect after posting
+      toast.success('Gig posted successfully!', {
+        position: 'bottom-left'
+      })
+      router.push('/search')
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to post gig')
     }

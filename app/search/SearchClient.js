@@ -1,6 +1,9 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 // Mock data for professionals/gigs
 const mockResults = [
@@ -57,6 +60,18 @@ const mockResults = [
 export default function SearchClient() {
   const searchParams = useSearchParams()
   const query = searchParams.get('query')?.toLowerCase() || ''
+
+  const { loading, error, token } = useSelector((state) => state.auth)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!token) {
+      toast.info('You are not logged in!', {
+        position: 'bottom-left'
+      })
+      router.push('/login')
+    }
+  }, [token, router])
 
   // Filter mock results based on query
   const filteredResults = query

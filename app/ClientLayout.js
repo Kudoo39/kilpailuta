@@ -15,7 +15,7 @@ export default function ClientLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
-        <ToastContainer theme='colored' />
+        <ToastContainer theme='colored' position='bottom-left' />
       </AuthInitializer>
     </Provider>
   )

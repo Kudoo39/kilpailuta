@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode'
 import { Button } from '~/components/ui/button'
 import { Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -69,9 +70,11 @@ export default function Navbar() {
       <div className='container mx-auto px-4 py-4 flex items-center justify-between'>
         {/* Logo */}
         <Link href='/' className='flex items-center gap-2'>
-          <img
+          <Image
             src='/logo.png'
             alt='Logo'
+            width={40}
+            height={40}
             className='h-10 w-auto'
             onError={(e) => (e.target.src = '/fallback-logo.png')}
           />
