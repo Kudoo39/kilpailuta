@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { jwtDecode } from 'jwt-decode'
+import api from '~/lib/api'
+import { toast } from 'react-toastify'
 
 export default function ProProfileClient() {
   const [jobTitle, setJobTitle] = useState('')
@@ -19,7 +20,7 @@ export default function ProProfileClient() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get('/pros/search', {
+        const response = await api.get('/pros/search', {
           headers: { Authorization: `Bearer ${token}` }
         })
         const myProfile = response.data.find(
@@ -39,36 +40,56 @@ export default function ProProfileClient() {
         )
       }
     }
-    fetchProfile()
+    if (token) fetchProfile()
   }, [token])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError(null)
     try {
-      const endpoint = profileExists ? '/pros/profile' : '/pros/profile'
+      const endpoint = '/pros/profile'
       const method = profileExists ? 'put' : 'post'
-      await axios[method](
+      await api[method](
         endpoint,
         { jobTitle, name, location, description },
         {
           headers: { Authorization: `Bearer ${token}` }
         }
       )
+      toast.success(
+        profileExists
+          ? 'Profile updated successfully!'
+          : 'Profile created successfully!',
+        {
+          position: 'bottom-left'
+        }
+      )
       router.push('/search')
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to save profile')
+      const errorMessage =
+        err.response?.data?.message || 'Failed to save profile'
+      setError(errorMessage)
+      toast.error(errorMessage, {
+        position: 'bottom-left'
+      })
     }
   }
 
   const handleDelete = async () => {
     if (confirm('Are you sure you want to delete your profile?')) {
       try {
-        await axios.delete('/pros/profile', {
+        await api.delete('/pros/profile', {
           headers: { Authorization: `Bearer ${token}` }
         })
-        router.push('/register') // Redirect after deletion
+        toast.info('Profile deleted successfully', {
+          position: 'bottom-left'
+        })
+        router.push('/register')
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to delete profile')
+        const errorMessage =
+          err.response?.data?.message || 'Failed to delete profile'
+        setError(errorMessage)
+        toast.error(errorMessage)
       }
     }
   }
