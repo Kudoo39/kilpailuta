@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser, clearError } from '~/lib/features/auth/authSlice'
+import { loginUser, logout, clearError } from '~/lib/features/auth/authSlice'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
 import { useEffect } from 'react'
@@ -16,18 +16,11 @@ const schema = yup
       .string()
       .email('Invalid email format')
       .required('Email is required'),
-    password: yup
-      .string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required'),
-    role: yup
-      .string()
-      .oneOf(['client', 'pro'], 'Role must be "client" or "pro"')
-      .required('Role is required')
+    password: yup.string().required('Password is required')
   })
   .required()
 
-export default function RegisterClient() {
+export default function LoginClient() {
   const dispatch = useDispatch()
   const { loading, error, token } = useSelector((state) => state.auth)
   const router = useRouter()
@@ -42,24 +35,23 @@ export default function RegisterClient() {
 
   useEffect(() => {
     if (token) {
-      toast.info('You are already logged in'),
-        {
-          position: 'bottom-left'
-        }
+      toast.info('You are already logged in', {
+        position: 'bottom-left'
+      })
       router.push('/search')
     }
   }, [token, router])
 
   const onSubmit = async (data) => {
     dispatch(clearError())
-    const result = await dispatch(registerUser(data))
+    const result = await dispatch(loginUser(data))
     if (!result.error) {
-      toast.success('Registration successful!', {
+      toast.success('Login successful!', {
         position: 'bottom-left'
       })
-      router.push(data.role === 'pro' ? '/pro-profile' : '/search')
+      router.push('/search')
     } else {
-      toast.error(result.payload || 'Registration failed', {
+      toast.error(result.payload || 'Login failed', {
         position: 'bottom-left'
       })
     }
@@ -71,7 +63,7 @@ export default function RegisterClient() {
     <div className='min-h-screen bg-gradient-to-br from-sky-50 to-blue-50 flex items-center justify-center p-4'>
       <div className='bg-white rounded-xl shadow-lg p-8 max-w-md w-full'>
         <h1 className='text-3xl font-bold text-sky-800 mb-6 text-center'>
-          Sign Up for Kilpailuta
+          Log In to Kilpailuta
         </h1>
         {loading && <p className='text-center text-gray-600'>Loading...</p>}
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
@@ -100,7 +92,7 @@ export default function RegisterClient() {
               id='password'
               type='password'
               {...register('password')}
-              placeholder='Enter your password (min 6 chars)'
+              placeholder='Enter your password'
               className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-sky-500 ${errors.password ? 'border-red-500' : ''}`}
               disabled={loading}
             />
@@ -110,35 +102,18 @@ export default function RegisterClient() {
               </p>
             )}
           </div>
-          <div>
-            <label className='block text-gray-700 mb-2' htmlFor='role'>
-              Role
-            </label>
-            <select
-              id='role'
-              {...register('role')}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-sky-500 ${errors.role ? 'border-red-500' : ''}`}
-              disabled={loading}
-            >
-              <option value='pro'>Find Gigs (I&apos;m a Professional)</option>
-              <option value='client'>Hire a Pro (I Need Help)</option>
-            </select>
-            {errors.role && (
-              <p className='text-red-500 text-sm mt-1'>{errors.role.message}</p>
-            )}
-          </div>
           <button
             type='submit'
             className='w-full bg-sky-600 text-white py-3 rounded-lg hover:bg-sky-700 disabled:bg-sky-400'
             disabled={loading}
           >
-            {loading ? 'Signing Up...' : 'Sign Up'}
+            {loading ? 'Logging In...' : 'Log In'}
           </button>
         </form>
         <p className='mt-4 text-center text-gray-600'>
-          Already have an account?{' '}
-          <Link href='/login' className='text-sky-600 hover:underline'>
-            Log In
+          Don&apos;t have an account?{' '}
+          <Link href='/register' className='text-sky-600 hover:underline'>
+            Sign Up
           </Link>
         </p>
       </div>

@@ -1,7 +1,12 @@
 'use client'
 
-import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '~/lib/features/auth/authSlice'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { toast } from 'react-toastify'
+import { jwtDecode } from 'jwt-decode'
 import { Button } from '~/components/ui/button'
 import { Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -9,27 +14,31 @@ import { motion } from 'framer-motion'
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef(null)
+  const { token } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+  const router = useRouter()
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen)
+  const toggleMenu = () => setIsOpen(!isOpen)
+  const closeMenu = () => setIsOpen(false)
+
+  const handleLogout = () => {
+    dispatch(logout())
+    toast.info('Logged out successfully', {
+      position: 'bottom-left'
+    })
+    router.push('/login')
+    closeMenu()
   }
 
-  const closeMenu = () => {
-    setIsOpen(false)
-  }
-
-  // Close the menu when clicking outside
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         closeMenu()
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   const navLinks = [
@@ -38,6 +47,17 @@ export default function Navbar() {
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' }
   ]
+
+  const authLinks = token
+    ? [
+        ...(jwtDecode(token).role === 'pro'
+          ? [{ name: 'Profile', href: '/pro-profile' }]
+          : []),
+        ...(jwtDecode(token).role === 'client'
+          ? [{ name: 'Post Gig', href: '/post-gig' }]
+          : [])
+      ]
+    : []
 
   return (
     <motion.nav
@@ -49,7 +69,12 @@ export default function Navbar() {
       <div className='container mx-auto px-4 py-4 flex items-center justify-between'>
         {/* Logo */}
         <Link href='/' className='flex items-center gap-2'>
-          <img src='/logo.png' alt='Logo' className='h-10 w-auto' />
+          <img
+            src='/logo.png'
+            alt='Logo'
+            className='h-10 w-auto'
+            onError={(e) => (e.target.src = '/fallback-logo.png')}
+          />
           <span className='text-xl font-bold text-sky-800'>Kilpailuta</span>
         </Link>
 
@@ -64,16 +89,32 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-        </div>
-
-        {/* Call-to-Action Button */}
-        <div className='hidden lg:block'>
-          <Button
-            asChild
-            className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
-          >
-            <Link href='/register'>Get Started</Link>
-          </Button>
+          {token ? (
+            <>
+              {authLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className='text-gray-700 hover:text-sky-600 transition-colors font-medium'
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <Button
+                onClick={handleLogout}
+                className='bg-gradient-to-r from-sky-500 to-blue-500 hover:bg-blue-600 text-white font-semibold shadow-md hover:shadow-lg'
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Button
+              asChild
+              className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
+            >
+              <Link href='/register'>Get Started</Link>
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -105,13 +146,35 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Button
-              asChild
-              className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
-              onClick={closeMenu}
-            >
-              <Link href='/register'>Get Started</Link>
-            </Button>
+            {token ? (
+              <>
+                {authLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className='text-gray-700 hover:text-sky-600 transition-colors font-medium'
+                    onClick={closeMenu}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                <Button
+                  onClick={handleLogout}
+                  className='bg-gradient-to-r from-sky-500 to-blue-500 hover:bg-blue-600 text-white font-semibold shadow-md hover:shadow-lg
+'
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Button
+                asChild
+                className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
+                onClick={closeMenu}
+              >
+                <Link href='/register'>Get Started</Link>
+              </Button>
+            )}
           </div>
         </motion.div>
       )}
