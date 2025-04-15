@@ -70,7 +70,10 @@ export default function LoginClient() {
         </form>
         <p className='mt-4 text-center text-gray-600'>
           Don&apos;t have an account?{' '}
-          <Link href='/register' className='text-sky-600 hover:underline'>
+          <Link
+            href='/register/client'
+            className='text-sky-600 hover:underline'
+          >
             Sign Up
           </Link>
         </p>

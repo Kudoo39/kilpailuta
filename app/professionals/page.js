@@ -87,7 +87,7 @@ export default function ProfessionalsLandingPage() {
   }, [])
 
   const getNavigationPath = (targetPath) =>
-    userRole ? targetPath : '/register'
+    userRole ? targetPath : '/register/pro'
 
   // Handler for clicking popular job buttons
   const handlePopularJobClick = (job) => {
@@ -103,7 +103,7 @@ export default function ProfessionalsLandingPage() {
       router.push(`/search?query=${encodeURIComponent(searchValue)}`)
     } else {
       // Not logged in: go to register with search value
-      router.push(`/register?search=${encodeURIComponent(searchValue)}`)
+      router.push(`/register/pro?search=${encodeURIComponent(searchValue)}`)
     }
   }
 
@@ -178,6 +178,65 @@ export default function ProfessionalsLandingPage() {
           </Marquee>
         </motion.div>
 
+        {/* Search Section */}
+        <div className='relative z-10 text-left max-w-4xl mx-auto px-4 pb-36'>
+          <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
+            <span className='block bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400'>
+              Discover Your Next Gig
+            </span>
+          </h2>
+          <p className='text-xl text-gray-600 mb-8'>
+            Search for tasks and opportunities that need your skills. From quick
+            fixes to creative projects, find work that fits your schedule.
+          </p>
+
+          {/* Search Bar */}
+          <form onSubmit={handleSearchSubmit} className='relative w-full'>
+            <input
+              type='text'
+              placeholder='Search for gigs (e.g., electrician, designer)'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
+            />
+            <Button
+              type='submit' // Changed from no type to submit
+              size='lg'
+              className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
+            >
+              <Search className='w-5 h-5' />
+            </Button>
+          </form>
+
+          {/* Autocomplete Suggestions */}
+          <div className='mt-6'>
+            <h3 className='text-lg font-semibold text-gray-800 mb-4'>
+              Popular Gigs
+            </h3>
+            <div className='flex flex-wrap gap-3'>
+              {[
+                'Frontend Developer',
+                'Plumber',
+                'Graphic Designer',
+                'Electrician',
+                'Content Writer',
+                'Painter',
+                'Web Developer',
+                'Chef'
+              ].map((job, idx) => (
+                <Button
+                  key={idx}
+                  variant='outline'
+                  className='text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors'
+                  onClick={() => handlePopularJobClick(job)}
+                >
+                  {job}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Hero Section */}
         <section className='mb-28 relative px-1'>
           <motion.div
@@ -243,65 +302,6 @@ export default function ProfessionalsLandingPage() {
             className='absolute bottom-1/4 left-1/2 w-24 h-24 bg-purple-600/20 rounded-full blur-lg'
           />
         </section>
-
-        {/* Search Section */}
-        <div className='relative z-10 text-left max-w-4xl mx-auto px-4 pb-36'>
-          <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
-            <span className='block bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400'>
-              Discover Your Next Gig
-            </span>
-          </h2>
-          <p className='text-xl text-gray-600 mb-8'>
-            Search for tasks and opportunities that need your skills. From quick
-            fixes to creative projects, find work that fits your schedule.
-          </p>
-
-          {/* Search Bar */}
-          <form onSubmit={handleSearchSubmit} className='relative w-full'>
-            <input
-              type='text'
-              placeholder='Search for gigs (e.g., electrician, designer)'
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
-            />
-            <Button
-              type='submit' // Changed from no type to submit
-              size='lg'
-              className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
-            >
-              <Search className='w-5 h-5' />
-            </Button>
-          </form>
-
-          {/* Autocomplete Suggestions */}
-          <div className='mt-6'>
-            <h3 className='text-lg font-semibold text-gray-800 mb-4'>
-              Popular Gigs
-            </h3>
-            <div className='flex flex-wrap gap-3'>
-              {[
-                'Frontend Developer',
-                'Plumber',
-                'Graphic Designer',
-                'Electrician',
-                'Content Writer',
-                'Painter',
-                'Web Developer',
-                'Chef'
-              ].map((job, idx) => (
-                <Button
-                  key={idx}
-                  variant='outline'
-                  className='text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors'
-                  onClick={() => handlePopularJobClick(job)}
-                >
-                  {job}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
       </main>
     </div>
   )

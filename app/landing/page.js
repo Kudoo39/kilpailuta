@@ -82,7 +82,7 @@ export default function LandingPage() {
   }, [])
 
   const getNavigationPath = (targetPath) =>
-    userRole ? targetPath : '/register'
+    userRole ? targetPath : '/register/client'
 
   const handlePopularTaskClick = (job) => {
     setSearchValue(job)
@@ -96,7 +96,7 @@ export default function LandingPage() {
       router.push(`/search?query=${encodeURIComponent(searchValue)}`)
     } else {
       // Not logged in: go to register with search value
-      router.push(`/register?search=${encodeURIComponent(searchValue)}`)
+      router.push(`/register/client?search=${encodeURIComponent(searchValue)}`)
     }
   }
 
@@ -170,6 +170,64 @@ export default function LandingPage() {
             ))}
           </Marquee>
         </motion.div>
+        {/* Search Section */}
+        <div className='relative z-10 text-left max-w-4xl mx-auto px-4 pb-36'>
+          <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
+            <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400'>
+              Hire Help for Any Task
+            </span>
+          </h2>
+          <p className='text-xl text-gray-600 mb-8'>
+            Search for pros to tackle any job—big or small. From fixing your
+            pipes to designing a logo, we have got the talent you need.
+          </p>
+
+          {/* Search Bar */}
+          <form onSubmit={handleSearchSubmit} className='relative w-full'>
+            <input
+              type='text'
+              placeholder='Search for help (e.g., plumber, graphic designer)'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
+            />
+            <Button
+              type='submit'
+              size='lg'
+              className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
+            >
+              <Search className='w-5 h-5' />
+            </Button>
+          </form>
+
+          {/* Autocomplete Suggestions */}
+          <div className='mt-6'>
+            <h3 className='text-lg font-semibold text-gray-800 mb-4'>
+              Popular Tasks
+            </h3>
+            <div className='flex flex-wrap gap-3'>
+              {[
+                'Electrician',
+                'Web Developer',
+                'Graphic Designer',
+                'Plumber',
+                'Chef',
+                'Marketing Specialist',
+                'Delivery Driver',
+                'Painter'
+              ].map((job, idx) => (
+                <Button
+                  key={idx}
+                  variant='outline'
+                  className='text-gray-700 hover:bg-sky-50 hover:text-sky-600 transition-colors'
+                  onClick={() => handlePopularTaskClick(job)}
+                >
+                  {job}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
         {/* Hero Section */}
         <section className='mb-28 relative px-1'>
           <motion.div
@@ -234,64 +292,6 @@ export default function LandingPage() {
             className='absolute bottom-1/4 left-1/2 w-24 h-24 bg-sky-600/20 rounded-full blur-lg'
           />
         </section>
-        {/* Search Section */}
-        <div className='relative z-10 text-left max-w-4xl mx-auto px-4 pb-36'>
-          <h2 className='text-4xl md:text-5xl font-extrabold tracking-tight mb-6'>
-            <span className='block bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-blue-400'>
-              Hire Help for Any Task
-            </span>
-          </h2>
-          <p className='text-xl text-gray-600 mb-8'>
-            Search for pros to tackle any job—big or small. From fixing your
-            pipes to designing a logo, we have got the talent you need.
-          </p>
-
-          {/* Search Bar */}
-          <form onSubmit={handleSearchSubmit} className='relative w-full'>
-            <input
-              type='text'
-              placeholder='Search for help (e.g., plumber, graphic designer)'
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className='w-full px-6 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none shadow-lg hover:shadow-xl transition-shadow'
-            />
-            <Button
-              type='submit'
-              size='lg'
-              className='absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
-            >
-              <Search className='w-5 h-5' />
-            </Button>
-          </form>
-
-          {/* Autocomplete Suggestions */}
-          <div className='mt-6'>
-            <h3 className='text-lg font-semibold text-gray-800 mb-4'>
-              Popular Tasks
-            </h3>
-            <div className='flex flex-wrap gap-3'>
-              {[
-                'Electrician',
-                'Web Developer',
-                'Graphic Designer',
-                'Plumber',
-                'Chef',
-                'Marketing Specialist',
-                'Delivery Driver',
-                'Painter'
-              ].map((job, idx) => (
-                <Button
-                  key={idx}
-                  variant='outline'
-                  className='text-gray-700 hover:bg-sky-50 hover:text-sky-600 transition-colors'
-                  onClick={() => handlePopularTaskClick(job)}
-                >
-                  {job}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
       </main>
     </div>
   )

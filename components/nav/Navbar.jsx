@@ -115,7 +115,7 @@ export default function Navbar() {
               asChild
               className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
             >
-              <Link href='/register'>Get Started</Link>
+              <Link href='/register/client'>Get Started</Link>
             </Button>
           )}
         </div>
@@ -175,7 +175,7 @@ export default function Navbar() {
                 className='bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105'
                 onClick={closeMenu}
               >
-                <Link href='/register'>Get Started</Link>
+                <Link href='/register/client'>Get Started</Link>
               </Button>
             )}
           </div>

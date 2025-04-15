@@ -61,14 +61,14 @@ export default function Contact() {
               <Mail className='h-6 w-6 text-sky-600' />
               <div>
                 <h3 className='font-semibold text-gray-900'>Email</h3>
-                <p className='text-gray-600'>support@kilpailuta.com</p>
+                <p className='text-gray-600'>kilpailuta365@gmail.com</p>
               </div>
             </div>
             <div className='flex items-start gap-4'>
               <Phone className='h-6 w-6 text-sky-600' />
               <div>
                 <h3 className='font-semibold text-gray-900'>Phone</h3>
-                <p className='text-gray-600'>+1 (555) 123-4567</p>
+                <p className='text-gray-600'>+358 (040) 537-xxxx</p>
               </div>
             </div>
             <div className='flex items-start gap-4'>
@@ -76,9 +76,9 @@ export default function Contact() {
               <div>
                 <h3 className='font-semibold text-gray-900'>Address</h3>
                 <p className='text-gray-600'>
-                  123 Business Street
+                  Aninkaistenkatu
                   <br />
-                  San Francisco, CA 94105
+                  20100 Turku, Finland
                 </p>
               </div>
             </div>
