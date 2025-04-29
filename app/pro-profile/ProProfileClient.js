@@ -8,14 +8,26 @@ import api from '~/lib/api'
 import { toast } from 'react-toastify'
 
 export default function ProProfileClient() {
-  const [jobTitle, setJobTitle] = useState('')
-  const [name, setName] = useState('')
-  const [location, setLocation] = useState('')
-  const [description, setDescription] = useState('')
+  const [formData, setFormData] = useState({
+    jobTitle: '',
+    name: '',
+    location: '',
+    description: '',
+    rate: ''
+  })
   const [error, setError] = useState(null)
   const [profileExists, setProfileExists] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
   const { token } = useSelector((state) => state.auth)
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+  }
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -27,10 +39,13 @@ export default function ProProfileClient() {
           (p) => p.userId === jwtDecode(token).id
         )
         if (myProfile) {
-          setJobTitle(myProfile.jobTitle)
-          setName(myProfile.name)
-          setLocation(myProfile.location)
-          setDescription(myProfile.description || '')
+          setFormData({
+            jobTitle: myProfile.jobTitle,
+            name: myProfile.name,
+            location: myProfile.location,
+            description: myProfile.description || '',
+            rate: myProfile.rate || ''
+          })
           setProfileExists(true)
         }
       } catch (err) {
@@ -46,16 +61,14 @@ export default function ProProfileClient() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
+    setIsSubmitting(true)
+
     try {
       const endpoint = '/pros/profile'
       const method = profileExists ? 'put' : 'post'
-      await api[method](
-        endpoint,
-        { jobTitle, name, location, description },
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      )
+      await api[method](endpoint, formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
       toast.success(
         profileExists
           ? 'Profile updated successfully!'
@@ -72,6 +85,8 @@ export default function ProProfileClient() {
       toast.error(errorMessage, {
         position: 'bottom-left'
       })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -101,46 +116,91 @@ export default function ProProfileClient() {
           ? 'Update Your Profile'
           : 'Set Up Your Professional Profile'}
       </h1>
+
       <form onSubmit={handleSubmit} className='max-w-md mx-auto space-y-4'>
         <input
           type='text'
-          value={jobTitle}
-          onChange={(e) => setJobTitle(e.target.value)}
+          name='jobTitle'
+          value={formData.jobTitle}
+          onChange={handleChange}
           placeholder='Job Title (e.g., Plumber)'
           className='w-full p-2 border rounded'
           required
+          disabled={isSubmitting}
         />
+
         <input
           type='text'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name='name'
+          value={formData.name}
+          onChange={handleChange}
           placeholder='Your Name'
           className='w-full p-2 border rounded'
           required
+          disabled={isSubmitting}
         />
+
         <input
           type='text'
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          name='location'
+          value={formData.location}
+          onChange={handleChange}
           placeholder='Location (e.g., Helsinki)'
           className='w-full p-2 border rounded'
           required
+          disabled={isSubmitting}
         />
+
         <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name='description'
+          value={formData.description}
+          onChange={handleChange}
           placeholder='Description (optional)'
           className='w-full p-2 border rounded'
+          disabled={isSubmitting}
         />
+
+        <div>
+          <label className='block text-gray-700 mb-2' htmlFor='rate'>
+            Rate
+          </label>
+          <div className='relative'>
+            <span className='absolute left-3 top-3 text-gray-500'>€</span>
+            <input
+              type='number'
+              name='rate'
+              value={formData.rate}
+              onChange={handleChange}
+              placeholder='e.g., 25€/hour'
+              className='w-full pl-8 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-sky-500'
+              required
+              disabled={isSubmitting}
+            />
+          </div>
+        </div>
+
         {error && <p className='text-red-500'>{error}</p>}
-        <button type='submit' className='bg-sky-600 text-white p-2 rounded'>
-          {profileExists ? 'Update Profile' : 'Create Profile'}
+
+        <button
+          type='submit'
+          className='bg-sky-600 text-white p-2 rounded disabled:bg-sky-400'
+          disabled={isSubmitting}
+        >
+          {isSubmitting
+            ? profileExists
+              ? 'Updating...'
+              : 'Creating...'
+            : profileExists
+              ? 'Update Profile'
+              : 'Create Profile'}
         </button>
+
         {profileExists && (
           <button
             type='button'
             onClick={handleDelete}
             className='bg-red-600 text-white p-2 rounded mt-2'
+            disabled={isSubmitting}
           >
             Delete Profile
           </button>
