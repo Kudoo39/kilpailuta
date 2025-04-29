@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
+import { jwtDecode } from 'jwt-decode'
 import api from '~/lib/api'
 import { toast } from 'react-toastify'
 
