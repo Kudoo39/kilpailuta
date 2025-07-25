@@ -6,20 +6,22 @@ import { useSelector } from 'react-redux'
 import { jwtDecode } from 'jwt-decode'
 import api from '~/lib/api'
 import { toast } from 'react-toastify'
+import AvatarUploader from '~/components/avatarUploader/AvatarUploader'
 
 export default function ProProfileClient() {
+  const [error, setError] = useState(null)
+  const [profileExists, setProfileExists] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
+  const { token } = useSelector((state) => state.auth)
   const [formData, setFormData] = useState({
+    avatar: '',
     jobTitle: '',
     name: '',
     location: '',
     description: '',
     rate: ''
   })
-  const [error, setError] = useState(null)
-  const [profileExists, setProfileExists] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const router = useRouter()
-  const { token } = useSelector((state) => state.auth)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -40,6 +42,7 @@ export default function ProProfileClient() {
         )
         if (myProfile) {
           setFormData({
+            avatar: myProfile.avatar || '',
             jobTitle: myProfile.jobTitle,
             name: myProfile.name,
             location: myProfile.location,
@@ -118,6 +121,12 @@ export default function ProProfileClient() {
       </h1>
 
       <form onSubmit={handleSubmit} className='max-w-md mx-auto space-y-4'>
+        <AvatarUploader
+          initialUrl={formData.avatar}
+          onChange={(url) => {
+            setFormData((fd) => ({ ...fd, avatar: url }))
+          }}
+        />
         <input
           type='text'
           name='jobTitle'

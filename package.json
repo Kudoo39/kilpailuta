@@ -27,6 +27,7 @@
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.474.0",
     "motion": "^12.3.1",
+    "next-cloudinary": "^6.16.0",
     "next.js": "^1.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

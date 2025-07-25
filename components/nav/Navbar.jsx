@@ -10,14 +10,39 @@ import { Menu as HeadlessMenu } from '@headlessui/react'
 import { Menu as MenuIcon, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import api from '~/lib/api'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState(null)
   const menuRef = useRef(null)
   const { token, user } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const router = useRouter()
   const DEFAULT_AVATAR = '/avatar.png'
+
+  // Load avatar from user object or backend
+  useEffect(() => {
+    if (user?.avatar) {
+      setAvatarUrl(user.avatar)
+      return
+    }
+    if (!token) return
+    const loadProfile = async () => {
+      try {
+        const res = await api.get('/pros/search', {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        const me = res.data.find((p) => p.userId === jwtDecode(token).id)
+        if (me?.avatar) {
+          setAvatarUrl(me.avatar)
+        }
+      } catch (e) {
+        console.error('Failed loading avatar in Navbar', e)
+      }
+    }
+    loadProfile()
+  }, [token, user])
 
   const toggleMenu = () => setIsOpen(!isOpen)
   const closeMenu = () => setIsOpen(false)
@@ -46,7 +71,6 @@ export default function Navbar() {
     { name: 'Contact', href: '/contact' }
   ]
 
-  // Determine auth-specific links based on role
   let authLinks = []
   if (token) {
     const { role } = jwtDecode(token)
@@ -79,7 +103,6 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className='hidden lg:flex items-center gap-8'>
-          {/* Main nav links */}
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -90,13 +113,12 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Avatar dropdown for auth */}
           {token ? (
             <HeadlessMenu as='div' className='relative'>
               <HeadlessMenu.Button className='focus:outline-none'>
                 <div className='w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary ring-offset-2 ring-offset-base-100'>
                   <Image
-                    src={user?.avatar || DEFAULT_AVATAR}
+                    src={avatarUrl || DEFAULT_AVATAR}
                     alt='User Avatar'
                     className='w-full h-full object-cover'
                     width={48}
@@ -110,7 +132,9 @@ export default function Navbar() {
                     {({ active }) => (
                       <Link
                         href={link.href}
-                        className={`block px-4 py-2 text-sm ${active ? 'bg-gray-100' : ''} text-gray-700`}
+                        className={`block px-4 py-2 text-sm ${
+                          active ? 'bg-gray-100' : ''
+                        } text-gray-700`}
                       >
                         {link.name}
                       </Link>
@@ -121,7 +145,9 @@ export default function Navbar() {
                   {({ active }) => (
                     <button
                       onClick={handleLogout}
-                      className={`w-full text-left px-4 py-2 text-sm ${active ? 'bg-gray-100' : ''} text-gray-700`}
+                      className={`w-full text-left px-4 py-2 text-sm ${
+                        active ? 'bg-gray-100' : ''
+                      } text-gray-700`}
                     >
                       Logout
                     </button>
@@ -139,14 +165,14 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Controls: avatar + hamburger */}
+        {/* Mobile Controls */}
         <div className='lg:hidden flex items-center gap-3'>
           {token && (
             <HeadlessMenu as='div' className='relative'>
               <HeadlessMenu.Button className='focus:outline-none'>
                 <div className='w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary ring-offset-2 ring-offset-base-100'>
                   <Image
-                    src={user?.avatar || DEFAULT_AVATAR}
+                    src={avatarUrl || DEFAULT_AVATAR}
                     alt='Avatar'
                     width={40}
                     height={40}
@@ -160,7 +186,9 @@ export default function Navbar() {
                     {({ active }) => (
                       <Link
                         href={link.href}
-                        className={`block px-4 py-2 text-sm ${active ? 'bg-gray-100' : ''}`}
+                        className={`block px-4 py-2 text-sm ${
+                          active ? 'bg-gray-100' : ''
+                        }`}
                       >
                         {link.name}
                       </Link>
@@ -171,7 +199,9 @@ export default function Navbar() {
                   {({ active }) => (
                     <button
                       onClick={handleLogout}
-                      className={`w-full text-left px-4 py-2 text-sm ${active ? 'bg-gray-100' : ''}`}
+                      className={`w-full text-left px-4 py-2 text-sm ${
+                        active ? 'bg-gray-100' : ''
+                      }`}
                     >
                       Logout
                     </button>
